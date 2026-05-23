@@ -1,0 +1,20 @@
+V1 public beta launch checklist 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+status=local-public-beta-front-main-pass 
+free=pass 
+controlled-adaptive=pass 
+grade-subject-selectors=pass 
+do-not-auto-change-subject=pass 
+per-device-3-uses-per-day=pass 
+public-beta-notice=pass 
+homework-pool-scene=pass 
+check-rules=pass 
+math-check-clean-backend=pass 
+save-open-delete=pass 
+feedback-template=pass 
+clean-information-rule=pass 
+project-structure-lines=pass 
+local-public-beta-front-test=pass 
+backend-total-limit=not-yet 
+online-entry=deferred-until-real-public-test 
+next=prepare-real-public-test-entry-later 

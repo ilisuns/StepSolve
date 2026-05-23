@@ -1,0 +1,225 @@
+﻿* { box-sizing: border-box; }
+body { margin: 0; background: #f4f7fb; color: #172033; font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif; }
+button, textarea, select { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: 0.6; }
+.appShell { min-height: 100vh; padding: 24px; }
+.heroPanel { max-width: 1280px; margin: 0 auto; }
+.titleBlock { margin-bottom: 20px; }
+.eyebrow { margin: 0 0 8px; color: #4d67a8; font-weight: 700; }
+h1, h2, p { margin-top: 0; }
+h1 { margin-bottom: 10px; font-size: 38px; letter-spacing: -0.04em; }
+.subtitle { max-width: 720px; margin-bottom: 0; color: #4d596f; font-size: 18px; line-height: 1.7; }
+.workspace { display: grid; grid-template-columns: minmax(360px, 0.9fr) minmax(420px, 1.1fr); gap: 18px; align-items: start; }
+.poolCard, .resultCard { border: 1px solid #dce4f2; border-radius: 24px; background: #fff; box-shadow: 0 16px 40px rgba(38, 53, 92, 0.08); }
+.poolCard { padding: 22px; }
+.resultColumn { display: grid; gap: 18px; }
+.resultCard { padding: 20px; }
+.rowHeader { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 12px; }
+.rowHeader h2, .resultCard h2 { margin-bottom: 0; font-size: 20px; }
+.selectRow { display: flex; gap: 8px; }
+select { min-height: 38px; border: 1px solid #cbd6e8; border-radius: 12px; background: #f8faff; padding: 0 10px; }
+.poolInput { width: 100%; min-height: 220px; resize: vertical; border: 1px solid #cbd6e8; border-radius: 18px; padding: 16px; outline: none; font-size: 17px; line-height: 1.7; background: #fbfdff; }
+.poolInput:focus, .studentWorkBox textarea:focus { border-color: #6684d8; box-shadow: 0 0 0 4px rgba(102, 132, 216, 0.14); }
+.toolRow, .followRow { display: flex; flex-wrap: wrap; gap: 10px; }
+.toolRow { margin: 12px 0 16px; }
+.ghostButton, .copyButton, .followRow button { border: 1px solid #cbd6e8; border-radius: 14px; background: #f8faff; color: #24334f; padding: 10px 14px; font-weight: 700; }
+.studentWorkBox { display: grid; gap: 8px; margin-bottom: 16px; color: #3b4961; font-weight: 700; }
+.studentWorkBox textarea { min-height: 86px; resize: vertical; border: 1px solid #cbd6e8; border-radius: 16px; padding: 12px; outline: none; line-height: 1.6; background: #fbfdff; }
+.mainButton { width: 100%; min-height: 54px; border: 0; border-radius: 18px; background: #263e8c; color: #fff; font-size: 18px; font-weight: 800; }
+.statusLine { margin-top: 12px; border-radius: 14px; background: #eef3ff; color: #3a4a69; padding: 12px 14px; line-height: 1.5; }
+.pill { border-radius: 999px; background: #eef3ff; color: #3a4a69; padding: 6px 10px; font-size: 13px; font-weight: 800; }
+.resultText { white-space: pre-wrap; word-break: break-word; margin: 0; border-radius: 18px; background: #f8faff; padding: 16px; color: #1c2941; font-size: 16px; line-height: 1.75; }
+.longResult { max-height: 340px; overflow: auto; }
+.emptyState { border: 1px dashed #cbd6e8; border-radius: 18px; background: #fbfdff; padding: 18px; color: #5a667b; line-height: 1.7; }
+.emptyState strong { display: block; margin-bottom: 6px; color: #26344d; }
+.emptyState p { margin-bottom: 0; }
+.emptyState.compact { padding: 14px; }
+.followRow { margin-top: 14px; }
+.actionLog { display: grid; gap: 8px; margin: 0; padding-left: 20px; color: #31415e; line-height: 1.6; }
+@media (max-width: 900px) { .workspace { grid-template-columns: 1fr; } .appShell { padding: 16px; } h1 { font-size: 30px; } }
+
+
+.busyNotice {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid #b9c7ff;
+  background: #eef3ff;
+  font-weight: 700;
+  color: #1d2f6f;
+}
+
+.goalBar { margin-top: 14px; padding: 12px 14px; border-radius: 16px; background: #eef3ff; color: #26354f; font-size: 16px; line-height: 1.6; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.goalBar strong { font-weight: 800; }
+
+.checkResultCard { border-width: 2px; }
+.checkResultCard h2 { font-size: 22px; }
+.checkResultCard .resultText { font-size: 17px; line-height: 1.85; }
+
+
+.saveButtonGroup {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.recentBox {
+  margin-top: 12px;
+}
+
+.recentBox h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.recentList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.recentItem {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.recentOpen {
+  text-align: left;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: 14px;
+  padding: 10px 12px;
+  cursor: pointer;
+  display: grid;
+  gap: 4px;
+}
+
+.recentOpen strong {
+  font-size: 14px;
+}
+
+.recentOpen span,
+.recentOpen small {
+  color: #64748b;
+}
+
+.recentDelete {
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: #fff;
+  border-radius: 14px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+
+.recentInfo {
+  text-align: left;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: grid;
+  gap: 4px;
+}
+
+.recentInfo strong {
+  font-size: 14px;
+}
+
+.recentInfo span,
+.recentInfo small {
+  color: #64748b;
+}
+
+.recentActions {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.recentOpenButton {
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: #fff;
+  border-radius: 14px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+
+.saveNotice {
+  margin-top: 8px;
+  font-weight: 700;
+  color: #166534;
+}
+
+
+.saveNotice.warning {
+  color: #b45309;
+}
+
+
+.poolWarning {
+  margin-top: 10px;
+  border: 1px solid rgba(180, 83, 9, 0.28);
+  background: rgba(255, 251, 235, 0.95);
+  color: #92400e;
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+.poolWarning {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.poolWarning button {
+  border: 1px solid rgba(146, 64, 14, 0.28);
+  background: #fff7ed;
+  color: #92400e;
+  border-radius: 12px;
+  padding: 7px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+
+/* button soft feedback pass */
+.mainButton,.ghostButton,.copyButton{transition:transform .08s ease,box-shadow .12s ease,opacity .12s ease;}
+.mainButton{border-radius:14px;box-shadow:0 8px 18px rgba(0,0,0,.12);}
+.mainButton:active,.ghostButton:active,.copyButton:active{transform:translateY(1px) scale(.99);}
+.mainButton:disabled,.ghostButton:disabled,.copyButton:disabled{opacity:.65;cursor:not-allowed;box-shadow:none;}
+
+
+/* button clear loading feedback pass */
+.mainButton:disabled,.ghostButton:disabled{opacity:1;cursor:wait;filter:none;}
+.mainButton:disabled{box-shadow:0 0 0 3px rgba(37,99,235,.18),0 10px 24px rgba(37,99,235,.22);animation:v1ButtonWaiting 1s ease-in-out infinite;}
+.ghostButton:disabled{box-shadow:0 0 0 2px rgba(37,99,235,.14);}
+@keyframes v1ButtonWaiting{0%{transform:scale(1)}50%{transform:scale(1.025)}100%{transform:scale(1)}}
+
+
+/* homework pool scene polish */
+.poolCard{position:relative;overflow:hidden;background:radial-gradient(circle at 20% 0%,rgba(59,130,246,.10),transparent 32%),linear-gradient(180deg,#ffffff,#f8fbff);}
+.poolCard::before{content:"作业进入解池";position:absolute;right:18px;top:14px;font-size:12px;color:#5b6f92;background:rgba(255,255,255,.72);border:1px solid rgba(148,163,184,.35);border-radius:999px;padding:5px 10px;}
+.poolInput{background:linear-gradient(180deg,#fbfdff,#ffffff);border:1.5px solid rgba(59,130,246,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 12px 30px rgba(15,23,42,.05);}
+.poolInput:focus{box-shadow:0 0 0 4px rgba(59,130,246,.12),0 12px 30px rgba(15,23,42,.06);}
+.poolFixedTip{border-left:3px solid rgba(59,130,246,.45);padding-left:10px;}
+
+
+/* pool tag overlap fix */
+.poolCard::before{display:none;}
+
+
+/* public beta notice */
+.publicBetaNotice{display:inline-block;margin:10px 0 0;padding:8px 12px;border-radius:999px;background:#fff7ed;border:1px solid rgba(251,146,60,.35);color:#9a3412;font-size:13px;font-weight:600;}

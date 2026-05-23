@@ -1,0 +1,14 @@
+V1 public URL plan 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+goal=make_users_open_one_public_url_to_test_V1 
+rule=do_not_give_code_to_users 
+deploy=one_frontend_one_backend 
+frontend_public_url=needed 
+backend_public_url=needed 
+change_later=frontend_API_BASE_to_backend_public_url 
+change_later=backend_CORS_allow_frontend_public_url 
+test_users=3_to_10_people 
+feedback_channel=wechat_or_email_or_form 
+rollback=restore-v1-current-stable.bat 
+not_now=change_V1_functions 
+next=choose_hosting_for_frontend_and_backend 

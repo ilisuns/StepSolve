@@ -1,0 +1,17 @@
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+backend/dist/
+frontend/dist/
+dist/
+coverage/
+.env
+.env.*
+backend/.env
+frontend/.env
+*.db
+*.sqlite
+*.log
+docs/backup*/
+docs/old-bat-archive*/
+frontend/src/App.backup-*.tsx

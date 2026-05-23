@@ -1,0 +1,7 @@
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+status=local-public-beta-front-main-pass 
+deployment-rule=pass 
+render-port-config=pass 
+restore-main-ts=pass 
+final-build=pass 
+next=prepare-backend-render-first 

@@ -1,0 +1,12 @@
+V1 save open delete test steps 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+rule=test_save_open_delete_only 
+do_not_test=math adaptive online_entry feedback_code 
+step1=reset_usage_or_wait_next_day 
+step2=put_only_homework_content_in_pool 
+step3=run_one_successful_solve_or_check 
+step4=click_save 
+step5=confirm_recent_count_becomes_1_of_20 
+step6=open_saved_item 
+step7=delete_saved_item 
+pass_condition=recent_homework_returns_0_of_20_no_stale_notice 

@@ -1,0 +1,7 @@
+V1 function freeze rule 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+status=local-public-beta-front-main-pass 
+rule=do_not_change_V1_functions_before_real_public_test 
+allowed=docs_records_public_entry_preparation_only 
+not_allowed=new_features_adaptive_expansion_feedback_code_backend_limit_image_homework 
+next=wait_until_real_public_test 

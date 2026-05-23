@@ -1,0 +1,11 @@
+V1 public beta front test 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+test1=public_beta_notice_visible=pass 
+test2=pool_scene_visible=pass 
+test3=math_check_clean_backend=pass 
+note3=page_math_test_was_blocked_by_limit_and_dirty_input 
+test4=per_device_3_uses_limit_works=pass 
+test5=over_limit_message_visible=pass 
+test6=save_open_delete_works=pass 
+test7=clean_pool_rule_visible=pass 
+result=local_public_beta_front_main_pass 

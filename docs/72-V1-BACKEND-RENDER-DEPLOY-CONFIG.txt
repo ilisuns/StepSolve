@@ -1,0 +1,13 @@
+V1 backend Render deploy config 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+host=Render 
+service_type=Web_Service 
+language=Node 
+root_directory=backend 
+build_command=npm install && npm run build 
+start_command=npm run start:prod 
+env_OPENAI_API_KEY=required 
+env_OPENAI_MODEL=optional_gpt-4.1-nano 
+port=use_process_env_PORT_or_3100 
+expected_public_url=onrender.com_url 
+next=push_project_to_git_or_connect_repo 

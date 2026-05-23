@@ -1,0 +1,12 @@
+V1 real public test entry later 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+current-status=local-public-beta-front-main-pass 
+do-later=prepare-real-public-test-entry 
+need1=frontend-public-url 
+need2=backend-public-url 
+need3=change-API_BASE-to-backend-public-url 
+need4=allow-frontend-url-in-CORS 
+need5=feedback-channel-wechat-email-or-form 
+need6=rollback-plan-use-restore-v1-current-stable 
+not-now=do-not-change-V1-functions 
+next=wait-until-real-public-test 

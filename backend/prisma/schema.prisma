@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  phoneOrEmail  String   @unique
+  passwordHash  String
+  nickname      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  orders          Order[]
+  benefits        Benefit[]
+  homeworkRecords HomeworkRecord[]
+}
+
+model Plan {
+  id            Int      @id @default(autoincrement())
+  name          String
+  description   String?
+  price         Int      @default(0)
+  periodDays    Int      @default(30)
+  includedTimes Int      @default(100)
+  status        String   @default("active")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  orders   Order[]
+  benefits Benefit[]
+}
+
+model Order {
+  id            Int      @id @default(autoincrement())
+  orderNo       String   @unique
+  userId        Int?
+  planId        Int?
+  amount        Int      @default(0)
+  orderStatus   String   @default("pending")
+  paymentStatus String   @default("unpaid")
+  benefitStatus String   @default("not_opened")
+  createdAt     DateTime @default(now())
+  paidAt        DateTime?
+  cancelledAt   DateTime?
+  updatedAt     DateTime @updatedAt
+
+  user    User?    @relation(fields: [userId], references: [id])
+  plan    Plan?    @relation(fields: [planId], references: [id])
+  benefit Benefit?
+}
+
+model Benefit {
+  id             Int      @id @default(autoincrement())
+  userId         Int?
+  planId         Int?
+  orderId        Int      @unique
+  benefitStatus  String   @default("not_opened")
+  remainingTimes Int      @default(0)
+  validFrom      DateTime?
+  validUntil     DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user  User?  @relation(fields: [userId], references: [id])
+  plan  Plan?  @relation(fields: [planId], references: [id])
+  order Order  @relation(fields: [orderId], references: [id])
+}
+
+model HomeworkRecord {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  question  String
+  grade     String
+  subject   String
+  mode      String
+  answer    String
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+}

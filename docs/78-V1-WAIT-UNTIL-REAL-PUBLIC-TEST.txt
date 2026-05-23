@@ -1,0 +1,8 @@
+V1 wait until real public test 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+status=local-public-beta-front-main-pass 
+function-freeze=pass 
+do-not-change=V1-functions 
+wait-for=real-public-test-entry 
+later-need=frontend-url backend-url API_BASE CORS feedback-channel rollback-plan 
+next=real-public-test-entry-only 

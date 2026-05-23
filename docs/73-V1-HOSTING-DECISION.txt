@@ -1,0 +1,10 @@
+V1 hosting decision 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+frontend_host=Vercel 
+backend_host=Render 
+users=open_frontend_public_url_only 
+backend_public_url=Render_onrender_url 
+frontend_API_BASE=backend_public_url_later 
+backend_CORS=allow_frontend_public_url_later 
+not_now=do_not_change_V1_functions 
+next=prepare_backend_render_first 

@@ -1,0 +1,10 @@
+V1 public beta front main pass 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+public-beta-front=main-pass 
+local-public-beta-front-test=pass 
+math-check-clean-backend=pass 
+save-open-delete=pass 
+per-device-limit=pass 
+clean-pool-rule=pass 
+online-entry=deferred-until-real-public-test 
+next=prepare-real-public-test-entry-later 

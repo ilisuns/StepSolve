@@ -1,0 +1,6 @@
+V1 public beta test rule 
+rule=pool_only_homework_content 
+do_not_put=grade subject test_steps click_instructions command_text 
+math_check_input=2x + 3 = 11, ask x. student wrote x = 4 check 
+failed_case=blocked_by_limit_and_dirty_input 
+next=reset_usage_then_clean_input_test 

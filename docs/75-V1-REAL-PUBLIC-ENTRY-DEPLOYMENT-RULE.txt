@@ -1,0 +1,9 @@
+V1 real public entry deployment rule 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+rule=do_not_give_code_to_test_users 
+users=open_public_url_only 
+deploy=one_frontend_one_backend 
+region=us_or_overseas 
+unrelated=china_mainland_icp_local_user_deploy 
+not_now=code_sharing_user_self_deploy_mass_release 
+next=prepare_public_url_plan 

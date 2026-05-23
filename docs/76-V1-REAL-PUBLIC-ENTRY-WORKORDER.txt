@@ -1,0 +1,14 @@
+V1 real public entry work order 
+stable=docs\backup-2026-05-23-public-beta-front-full-pass 
+status=V1-functions-frozen 
+goal=make-real-users-open-and-test-V1 
+step1=choose-feedback-channel 
+step2=prepare-frontend-public-url 
+step3=prepare-backend-public-url 
+step4=change-API_BASE-only-after-backend-url-ready 
+step5=allow-frontend-url-in-CORS 
+step6=run-smoke-test 
+step7=send-to-3-to-10-test-users 
+rollback=restore-v1-current-stable.bat 
+not_allowed=change-V1-functions 
+next=choose-feedback-channel-first 
