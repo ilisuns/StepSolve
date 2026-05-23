@@ -1,7 +1,6 @@
 stable=docs\backup-2026-05-23-public-beta-front-full-pass 
-status=local-public-beta-front-main-pass 
-deployment-rule=pass 
-render-port-config=pass 
-restore-main-ts=pass 
-final-build=pass 
-next=prepare-backend-render-first 
+local-git=pass 
+branch=main 
+commits=7ddc41b_and_4f44339 
+github-push=paused-repository-not-found 
+next=create-real-github-repo-then-push 
