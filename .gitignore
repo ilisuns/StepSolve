@@ -15,3 +15,8 @@ frontend/.env
 docs/backup*/
 docs/old-bat-archive*/
 frontend/src/App.backup-*.tsx
+backend/openai-*.js 
+backend/test-prisma.js 
+backend/test/ 
+backend/prisma/migrations/ 
+docs/* 
