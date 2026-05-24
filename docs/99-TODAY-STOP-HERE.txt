@@ -1,6 +1,6 @@
 stable=docs\backup-2026-05-23-public-beta-front-full-pass 
 local-git=pass 
-branch=main 
-commits=7ddc41b_and_4f44339 
-github-push=paused-repository-not-found 
-next=create-real-github-repo-then-push 
+github-push=pass 
+render-blueprint=pass 
+render-blueprint-commit=9a364ff 
+next=render-new-blueprint-deploy 
