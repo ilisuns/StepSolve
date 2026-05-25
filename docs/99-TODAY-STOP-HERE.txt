@@ -1,6 +1,8 @@
-stable=docs\backup-2026-05-23-public-beta-front-full-pass 
-local-git=pass 
-github-push=pass 
-render-blueprint=pass 
-render-blueprint-commit=9a364ff 
-next=render-new-blueprint-deploy 
+V1 ONLINE PUBLIC BETA PASS 
+frontend=https://step-solve.vercel.app 
+backend=https://stepsolve-backend.onrender.com 
+github=ilisuns/StepSolve 
+clean-online-check-test=pass 
+public-beta-limit=3-homework-per-day-8-interactions-each 
+feedback-mailto=pass 
+next=do-not-add-features-test-with-real-users-first 

@@ -1,0 +1,9 @@
+V1 online public beta smoke pass 
+frontend=https://step-solve.vercel.app 
+backend=https://stepsolve-backend.onrender.com 
+public-beta-limit=3-homework-per-day-8-interactions-each 
+feedback-mailto=pass 
+check-test=pass 
+note=clean-pool-test-next-only-homework-content 
+clean-online-check-test=pass 
+clean-question=2x-plus-3-equals-11-x-equals-4-check-pass 
