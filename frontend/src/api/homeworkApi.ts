@@ -1,6 +1,6 @@
-﻿export type HomeworkApiPayload = any; 
+export type HomeworkApiPayload = any; 
  
-const API_BASE = 'http://localhost:3100'; 
+const API_BASE = 'https://stepsolve-backend.onrender.com'; 
  
 async function postJson(path: string, payload: HomeworkApiPayload) { 
   return fetch(API_BASE + path, { 

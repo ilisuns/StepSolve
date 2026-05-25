@@ -1,10 +1,10 @@
-﻿import { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import './App.css';
 
 type FollowAction = 'next' | 'hint' | 'check';
 type LoadingAction = '' | 'solve' | FollowAction;
 
-const API_BASE = 'http://127.0.0.1:3100';
+const API_BASE = 'https://stepsolve-backend.onrender.com';
 const checkWords = ['检查', '对不对', '哪里错', '错在哪', '帮我看看', '看一下', '是否正确'];
 
 function nowText() {
