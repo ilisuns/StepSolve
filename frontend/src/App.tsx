@@ -174,21 +174,35 @@ function App() {
     }
   }
 
-  const PUBLIC_BETA_DAILY_LIMIT = 3;
-  const publicBetaLimitText = '公测次数已用完。你今天的免费公测次数已经用完，明天可以继续把作业扔进解池。';
-  function takePublicBetaUse() {
-    const key = 'v1-public-beta-usage';
+  const PUBLIC_BETA_DAILY_HOMEWORK_LIMIT = 3;
+  const PUBLIC_BETA_HOMEWORK_INTERACTION_LIMIT = 8;
+  const publicBetaDailyLimitText = '今天的免费公测作业数已用完。明天可以继续把作业扔进解池。';
+  const publicBetaHomeworkLimitText = '这份作业今天已经互动 8 次。可以保存结果，或换一份作业继续。';
+  function publicBetaQuestionKey(question: string) {
+    return question.replace(/\s+/g, ' ').trim().slice(0, 120);
+  }
+  function takePublicBetaUse(question: string) {
+    const key = 'v1-public-beta-homework-usage';
     const today = new Date().toISOString().slice(0, 10);
-    let count = 0;
+    let items: Record<string, number> = {};
     try {
-      const saved = JSON.parse(localStorage.getItem(key) || '{}') as { date?: string; count?: number };
-      if (saved.date === today) count = Number(saved.count || 0);
+      const saved = JSON.parse(localStorage.getItem(key) || '{}') as { date?: string; items?: Record<string, number> };
+      if (saved.date === today && saved.items) items = saved.items;
     } catch {
-      count = 0;
+      items = {};
     }
-    if (count >= PUBLIC_BETA_DAILY_LIMIT) return false;
-    localStorage.setItem(key, JSON.stringify({ date: today, count: count + 1 }));
-    return true;
+    const qKey = publicBetaQuestionKey(question);
+    const knownHomework = Object.prototype.hasOwnProperty.call(items, qKey);
+    if (!knownHomework && Object.keys(items).length >= PUBLIC_BETA_DAILY_HOMEWORK_LIMIT) {
+      return { ok: false, message: publicBetaDailyLimitText, log: '公测限次：今日作业数已用完' };
+    }
+    const count = Number(items[qKey] || 0);
+    if (count >= PUBLIC_BETA_HOMEWORK_INTERACTION_LIMIT) {
+      return { ok: false, message: publicBetaHomeworkLimitText, log: '公测限次：本题互动次数已用完' };
+    }
+    items[qKey] = count + 1;
+    localStorage.setItem(key, JSON.stringify({ date: today, items }));
+    return { ok: true, message: '', log: '' };
   }
 
   async function handleSolve() {
@@ -210,11 +224,12 @@ function App() {
 
     if (loadingAction) return;
 
-    if (!takePublicBetaUse()) {
-      setCurrentStep(publicBetaLimitText);
+    const betaUse = takePublicBetaUse(question);
+    if (!betaUse.ok) {
+      setCurrentStep(betaUse.message);
       setNextHint('');
       setCheckResult('');
-      addActionLog('公测限次：今日次数已用完');
+      addActionLog(betaUse.log);
       return;
     }
     // FRONT_BETA_SOLVE_CONNECTED
@@ -267,10 +282,11 @@ function App() {
 
     if (loadingAction) return;
 
-    if (!takePublicBetaUse()) {
-      if (action === 'check') setCheckResult(publicBetaLimitText);
-      if (action !== 'check') setNextHint(publicBetaLimitText);
-      addActionLog('公测限次：今日次数已用完');
+    const betaUse = takePublicBetaUse(question);
+    if (!betaUse.ok) {
+      if (action === 'check') setCheckResult(betaUse.message);
+      if (action !== 'check') setNextHint(betaUse.message);
+      addActionLog(betaUse.log);
       return;
     }
     // FRONT_BETA_FOLLOW_CONNECTED
@@ -469,7 +485,7 @@ function App() {
           <p className="eyebrow">自适应解池 V1</p>
           <h1>把作业拆成下一步</h1>
           <p className="subtitle">数学、物理、化学题放进来，系统先看题，再把思路拆成学生能走的一小步。</p>
-          <p className="publicBetaNotice">V1 公测版：免费试用，每台设备每天 3 次。先支持数学、物理、化学文字作业。</p>
+          <p className="publicBetaNotice">V1 公测版：每台设备每天可测试 3 份作业；每份作业最多 8 次 AI 互动。先支持数学、物理、化学文字作业。</p>
           <div className="goalBar"><strong>目标：</strong><span>看懂题目 → 找到方法 → 做下一步 → 检查错误</span></div>
         </div>
 
