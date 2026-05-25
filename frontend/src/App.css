@@ -203,7 +203,7 @@ select { min-height: 38px; border: 1px solid #cbd6e8; border-radius: 12px; backg
 
 
 /* button clear loading feedback pass */
-.mainButton:disabled,.ghostButton:disabled{opacity:1;cursor:wait;filter:none;}
+.mainButton:disabled,.ghostButton:disabled{opacity:1;cursor:not-allowed;filter:none;}
 .mainButton:disabled{box-shadow:none;}
 .ghostButton:disabled{box-shadow:0 0 0 2px rgba(37,99,235,.14);}
 @keyframes v1ButtonWaiting{0%{transform:scale(1)}50%{transform:scale(1.025)}100%{transform:scale(1)}}
