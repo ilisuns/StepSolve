@@ -532,11 +532,11 @@ function App() {
 
             <button
               type="button"
-              className="mainButton"
+              className={loadingAction === 'solve' ? 'mainButton isLoading' : 'mainButton'}
               onClick={handleSolve}
               disabled={!poolText.trim() || Boolean(loadingAction)}
             >
-              {mainButtonText}
+              {loadingAction === 'solve' ? '作业正在加载中' : mainButtonText}
             </button>
 
 
