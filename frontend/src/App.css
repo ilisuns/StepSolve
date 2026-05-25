@@ -203,7 +203,7 @@ select { min-height: 38px; border: 1px solid #cbd6e8; border-radius: 12px; backg
 
 
 /* button clear loading feedback pass */
-.mainButton:disabled,.ghostButton:disabled{opacity:1;cursor:not-allowed;filter:none;}
+.mainButton:disabled,.ghostButton:disabled{opacity:1;cursor:default;filter:none;}
 .mainButton:disabled{box-shadow:none;}
 .ghostButton:disabled{box-shadow:0 0 0 2px rgba(37,99,235,.14);}
 @keyframes v1ButtonWaiting{0%{transform:scale(1)}50%{transform:scale(1.025)}100%{transform:scale(1)}}
@@ -225,6 +225,6 @@ select { min-height: 38px; border: 1px solid #cbd6e8; border-radius: 12px; backg
 .publicBetaNotice{display:inline-block;margin:10px 0 0;padding:8px 12px;border-radius:999px;background:#fff7ed;border:1px solid rgba(251,146,60,.35);color:#9a3412;font-size:13px;font-weight:600;}
 
 /* loading only after real solve click */
-.mainButton.isLoading{cursor:wait;box-shadow:0 0 0 3px rgba(37,99,235,.18),0 10px 24px rgba(37,99,235,.22);animation:v1ButtonWaiting 1s ease-in-out infinite;}
+.mainButton.isLoading{cursor:default;box-shadow:0 0 0 3px rgba(37,99,235,.18),0 10px 24px rgba(37,99,235,.22);animation:v1ButtonWaiting 1s ease-in-out infinite;}
 .mainButton.isLoading::after{content:'···';display:inline-block;width:22px;text-align:left;overflow:hidden;vertical-align:bottom;animation:v1Dots 1.1s steps(4,end) infinite;}
 @keyframes v1Dots{0%{width:0}100%{width:22px}}
