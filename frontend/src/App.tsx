@@ -486,6 +486,7 @@ function App() {
           <h1>把作业拆成下一步</h1>
           <p className="subtitle">数学、物理、化学题放进来，系统先看题，再把思路拆成学生能走的一小步。</p>
           <p className="publicBetaNotice">V1 公测版：每台设备每天可测试 3 份作业；每份作业最多 8 次 AI 互动。先支持数学、物理、化学文字作业。</p>
+          <p className="publicBetaNotice"><a href="mailto:trlisuning@gmail.com?subject=StepSolve%20Feedback&body=What%20problem%20were%20you%20trying%20to%20solve%3F%0you%20trying%20to%20solve%0A%0ADid%20StepSolve%20help%20you%20find%20the%20next%20step%3F%0A%0AWhat%20was%20confusing%3F%0A%0AYour%20email%20(optional)%3A%20">Send Feedback</a> · If you leave your email, we may follow up for more details.</p>
           <div className="goalBar"><strong>目标：</strong><span>看懂题目 → 找到方法 → 做下一步 → 检查错误</span></div>
         </div>
 
