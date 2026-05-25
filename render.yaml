@@ -9,4 +9,7 @@ services:
     envVars:
       - key: OPENAI_API_KEY
         sync: false
-      - key: OPENAI_MODEL`r`n        value: gpt-4.1-nano`r`n      - key: DATABASE_URL`r`n        value: file:./dev.db
+      - key: OPENAI_MODEL
+        value: gpt-4.1-nano
+      - key: DATABASE_URL
+        value: file:./dev.db
