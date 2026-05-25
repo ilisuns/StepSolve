@@ -236,3 +236,34 @@ select { min-height: 38px; border: 1px solid #cbd6e8; border-radius: 12px; backg
 .mainButton:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(37,99,235,.25);}
 @keyframes v1MainButtonShine{0%{transform:translateX(-80%)}55%{transform:translateX(80%)}100%{transform:translateX(80%)}}
 @keyframes v1MainButtonBreath{0%{box-shadow:0 8px 18px rgba(0,0,0,.12)}50%{box-shadow:0 12px 26px rgba(37,99,235,.24)}100%{box-shadow:0 8px 18px rgba(0,0,0,.12)}}
+
+/* main button visible moving arrow pass */
+.mainButton{
+  position:relative;
+  overflow:hidden;
+  padding-left:56px;
+}
+.mainButton:not(.isLoading)::before{
+  content:'➜' !important;
+  position:absolute;
+  left:18px;
+  top:50%;
+  width:30px;
+  height:30px;
+  margin-top:-15px;
+  border-radius:999px;
+  background:rgba(255,255,255,.26);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  font-weight:900;
+  box-shadow:0 0 0 2px rgba(255,255,255,.18) inset,0 6px 14px rgba(0,0,0,.16);
+  animation:v1MovingArrowThing .75s ease-in-out infinite;
+}
+@keyframes v1MovingArrowThing{
+  0%{transform:translateX(0) scale(.92);opacity:.75}
+  50%{transform:translateX(12px) scale(1.12);opacity:1}
+  100%{transform:translateX(0) scale(.92);opacity:.75}
+}
