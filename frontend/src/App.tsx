@@ -5,7 +5,7 @@ type FollowAction = 'next' | 'hint' | 'check';
 type LoadingAction = '' | 'solve' | FollowAction;
 
 const API_BASE = 'https://stepsolve-backend.onrender.com';
-const checkWords = ['检查', '对不对', '哪里错', '错在哪', '帮我看看', '看一下', '是否正确'];
+const checkWords = ['检查', '对不对', '哪里错', '错在哪', '帮我看看', '看一下', '是否正确', 'is this correct', 'check my work', 'check this', 'is it right', 'did i do this right'];
 
 function nowText() {
   return new Date().toLocaleTimeString('zh-CN', { hour12: false });
@@ -33,7 +33,7 @@ function cleanPoolText(value: string) {
 function judgePoolText(value: string) {
   const cleaned = cleanPoolText(value);
   const hasHomework = Boolean(cleaned.trim());
-  const hasStudentWork = /我先|我做到|我写的是|我写了|我写到|我的步骤是|我的答案是|我算的是|我列的是|所以|答案是|检查对不对|对不对/.test(cleaned);
+  const hasStudentWork = /我先|我做到|我写的是|我写了|我写到|我的步骤是|我的答案是|我算的是|我列的是|所以|答案是|检查对不对|对不对|i got|i wrote|my answer|my step|my work|is this correct|is it right|did i do this right|=|＝/i.test(cleaned);
 
   return { cleaned, hasHomework, hasStudentWork };
 }
