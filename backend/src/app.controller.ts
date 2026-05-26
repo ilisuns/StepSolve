@@ -27,14 +27,14 @@ function text(value: unknown) {
 
 function safeFallback(action: string) {
   if (action === 'hint') {
-    return 'Judgment:你现在需要的是方向，不是完整答案。\n\nCurrent step:先找未知量，再找它和已知条件之间的关系。\n\nNext step:只写下一小步，不要一次写完整答案。';
+    return 'Judgment: You need direction, not a full answer.\n\nCurrent step:先找未知量，再找它和已知条件之间的关系。\n\nNext step:只写下一小步，不要一次写完整答案。';
   }
 
   if (action === 'check') {
-    return 'Judgment:还看不出来。\n\nCurrent step:需要同时看到原题、学生步骤和检查请求。\n\nNext step:把原题、你的步骤、卡住的地方一起放进解池。';
+    return 'Judgment: Not enough information yet.\n\nCurrent step:需要同时看到原题、学生步骤和检查请求。\n\nNext step:把原题、你的步骤、卡住的地方一起放进解池。';
   }
 
-  return 'Judgment:先读题，不急着直接给答案。\n\nCurrent step:把题目要求什么、已知条件是什么分开。\n\nNext step:只往前走一小步。';
+  return 'Judgment: Read the problem first. Do not rush to the answer.\n\nCurrent step:把题目要求什么、已知条件是什么分开。\n\nNext step:只往前走一小步。';
 }
 
 @Controller()
@@ -59,14 +59,14 @@ export class AppController {
     if (!question) {
       return {
         action: 'solve',
-        answer: 'Judgment:还没有看到题目。\n\nCurrent step:请先把作业题放进解池。\n\nNext step:放入原题、你的步骤或卡住的地方。',
+        answer: 'Judgment: No problem found yet.\n\nCurrent step:请先把作业题放进解池。\n\nNext step:放入原题、你的步骤或卡住的地方。',
       };
     }
 
     const prompt = [
       '你是一个面向学生的作业拆解助手。',
       '产品不是答案机，目标是把作业变成学生能继续走下去的学习路径。',
-      '只服务数学、物理、化学。`r`nAnswer only in clear English for US middle-school students.',
+      '只服务数学、物理、化学。`r`nAnswer only in clear English for US middle-school students. Do not include Chinese words in the user-facing answer.',
       '',
       '三科强引导规则：数学、物理、化学里，只要关系链容易绕，即使题目看起来基础，也按困难题或强引导题处理。',
       '',
@@ -115,7 +115,7 @@ export class AppController {
 
       return {
         action: 'solve',
-        answer: (completion.choices[0]?.message?.content?.trim() || safeFallback('solve')).replace(/^Judgment:\s*\n\s*([^\n]+)(?=\n\s*\n\s*Current step:)/, 'Judgment:$1').replace(/^Judgment:\s*(?=\n\s*Current step:)/, 'Judgment:继续拆解。').replace(/Current step:\s*\n\s*(Next step:\s*\n?\s*([^\n]+))/, 'Current step:$2\n\n$1').replace(/已知条件/g, '题里给的信息').replace(/表达式/g, '算式').replace(/一元一次方程/g, '带 x 的等式').replace(/常数项/g, '单独的数').replace(/系数/g, '前面的数字'),
+        answer: (completion.choices[0]?.message?.content?.trim() || safeFallback('solve')).replace(/^Judgment:\s*\n\s*([^\n]+)(?=\n\s*\n\s*Current step:)/, 'Judgment:$1').replace(/^Judgment:\s*(?=\n\s*Current step:)/, 'Judgment: Continue.').replace(/Current step:\s*\n\s*(Next step:\s*\n?\s*([^\n]+))/, 'Current step:$2\n\n$1').replace(/已知条件/g, '题里给的信息').replace(/表达式/g, '算式').replace(/一元一次方程/g, '带 x 的等式').replace(/常数项/g, '单独的数').replace(/系数/g, '前面的数字'),
       };
     } catch (error) {
       console.error('OpenAI solve failed:', error);
@@ -163,7 +163,7 @@ export class AppController {
         return {
           action,
           answer:
-            'Judgment:继续拆解。\n\nCurrent step:写出总数关系：红球 + 蓝球 = 总数，也就是 ' +
+            'Judgment: Continue.\n\nCurrent step:写出总数关系：红球 + 蓝球 = 总数，也就是 ' +
             ballRed +
             ' + ' +
             ballBlue +
@@ -179,7 +179,7 @@ export class AppController {
         return {
           action,
           answer:
-            'Judgment:继续拆解。\n\nCurrent step:计算 ' +
+            'Judgment: Continue.\n\nCurrent step:计算 ' +
             ballRed +
             ' + ' +
             ballBlue +
@@ -194,7 +194,7 @@ export class AppController {
       return {
         action,
         answer:
-          'Judgment:继续拆解。\n\nCurrent step:写出结论：一共有 ' +
+          'Judgment: Continue.\n\nCurrent step:写出结论：一共有 ' +
           ballTotal +
           ' 个球。\n\nNext step:可以检查：' +
           ballRed +
@@ -250,7 +250,7 @@ export class AppController {
     if (action === 'check' && !studentWork) {
       return {
         action,
-        answer: 'Judgment:还看不出来。\n\nCurrent step:我只看到原题，还没有看到你的解题步骤。\n\nNext step:把你已经做到的那一步也放进解池，比如：我先写了……，检查对不对。',
+        answer: 'Judgment: Not enough information yet.\n\nCurrent step:我只看到原题，还没有看到你的解题步骤。\n\nNext step:把你已经做到的那一步也放进解池，比如：我先写了……，检查对不对。',
       };
     }
 
@@ -282,11 +282,11 @@ export class AppController {
       }
     }
     if (action === 'next' && subject === '物理' && /质量.*2kg|2kg/.test(question) && /6N|合力/.test(question)) {
-      return { action, answer: 'Judgment:继续拆解。\n\nCurrent step:用公式 a = F ÷ m。\n\nNext step:把数字代进去：a = 6 ÷ 2。算完后，单位写 m/s²。' }; // 物理Next step固定提示
+      return { action, answer: 'Judgment: Continue.\n\nCurrent step:用公式 a = F ÷ m。\n\nNext step:把数字代进去：a = 6 ÷ 2。算完后，单位写 m/s²。' }; // 物理Next step固定提示
     }
 
     if (action === 'next' && subject === '化学' && /氢气|氧气|H2|O2|H₂|O₂|H2O|H₂O|配平/.test(question)) {
-      return { action, answer: 'Judgment:继续拆解。\n\nCurrent step:先写出未配平的式子：H2 + O2 → H2O。\n\nNext step:数原子。左边氢 2 个，氧 2 个；右边氢 2 个，氧 1 个。先想办法让氧的个数相等。' }; // 化学Next step固定提示
+      return { action, answer: 'Judgment: Continue.\n\nCurrent step:先写出未配平的式子：H2 + O2 → H2O。\n\nNext step:数原子。左边氢 2 个，氧 2 个；右边氢 2 个，氧 1 个。先想办法让氧的个数相等。' }; // 化学Next step固定提示
     }
 
     const actionInstruction =
@@ -298,7 +298,7 @@ export class AppController {
 
     const prompt = [
       '你是一个面向学生的作业拆解助手。',
-      '产品不是答案机，目标是让学生继续走Next step。`r`nAnswer only in clear English for US middle-school students.',
+      '产品不是答案机，目标是让学生继续走Next step。`r`nAnswer only in clear English for US middle-school students. Do not include Chinese words in the user-facing answer.',
       '',
       '三科强引导规则：数学、物理、化学里，只要关系链容易绕，即使题目看起来基础，也按困难题或强引导题处理。',
       '',
@@ -360,8 +360,8 @@ export class AppController {
         temperature: 0.2,
       });
 
-      const rawAnswer = (completion.choices[0]?.message?.content?.trim() || safeFallback(action)).replace(/^Judgment:\s*\n\s*([^\n]+)(?=\n\s*\n\s*Current step:)/, 'Judgment:$1').replace(/^Judgment:\s*(?=\n\s*Current step:)/, 'Judgment:继续拆解。');
-      const neutralJudge = action === 'hint' ? 'Judgment:给一点提示。' : 'Judgment:继续拆解。';
+      const rawAnswer = (completion.choices[0]?.message?.content?.trim() || safeFallback(action)).replace(/^Judgment:\s*\n\s*([^\n]+)(?=\n\s*\n\s*Current step:)/, 'Judgment:$1').replace(/^Judgment:\s*(?=\n\s*Current step:)/, 'Judgment: Continue.');
+      const neutralJudge = action === 'hint' ? 'Judgment: Here is a hint.' : 'Judgment: Continue.';
       const answer =
         action !== 'check' && !studentWork
           ? rawAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, neutralJudge + '\n\n')
@@ -372,7 +372,7 @@ export class AppController {
       const mathNeedChangeAnswer = action === 'check' && /2x\+3=11/.test(question.replace(/\s+/g, '')) && /2x=7/.test(compactStudentWork) ? mathCanContinueAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: This needs to be fixed.' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:从 2x + 3 = 11 移项后，右边应是 11 - 3 = 8，不是 7。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:先改成 2x = 8，再继续求 x。') : mathCanContinueAnswer;
       const mathDivideNotFinishedAnswer = action === 'check' && /2x\+3=11/.test(question.replace(/\s+/g, '')) && /x=8[÷\/]2/.test(compactStudentWork) ? mathNeedChangeAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: Need one more step.' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:x = 8 ÷ 2 方向对，但还没有算出最终结果。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:把 8 ÷ 2 算出来，写成 x = 4。') : mathNeedChangeAnswer;
       const compactQuestion = question.replace(/\s+/g, '');
-      const mathFinalAnswer = action === 'check' && /2x\+3=11/.test(compactQuestion) && /x=4/.test(compactStudentWork) ? answer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: You can continue.' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:x = 4 is correct.' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step: Substitute x = 4 back into the original equation to check: 2×4 + 3 = 11.') : mathDivideNotFinishedAnswer;
+      const mathFinalAnswer = action === 'check' && /2x\+3=11/.test(compactQuestion) && /x=4/.test(compactStudentWork) ? answer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: You can continue.' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step: x = 4 is correct.' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step: Substitute x = 4 back into the original equation to check: 2×4 + 3 = 11.') : mathDivideNotFinishedAnswer;
       const physicsCheckedAnswer = action === 'check' && /质量.*2\s*kg|2\s*kg.*质量/.test(question) && /6N|6\s*N/.test(question) && /F\s*=\s*ma/i.test(studentWork) && /6\s*[÷\/]\s*2\s*=\s*3/.test(studentWork) ? mathFinalAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: This step is correct.' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:确认 6N 是合力，然后写出最终答：a = 3m/s²。') : mathFinalAnswer;
       const chemistryCheckedAnswer = action === 'check' && /氢气|氧气|水|配平/.test(question + studentWork) && (/H2\+O2=H2O/i.test(compactStudentWork) || /H₂\+O₂=H₂O/i.test(compactStudentWork)) ? physicsCheckedAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: This step is incomplete; the equation is not balanced yet.' + '\n\n') : physicsCheckedAnswer;
 
@@ -387,7 +387,7 @@ export class AppController {
       const hasSpeedFormula = /速度.*(路程|距离).*时间|速度的表达式|速度公式|距离除以时间|路程除以时间|代入公式/.test(current);
       const hasSpeedSubstitution = compactCurrentForPhysics.includes(distanceValue + '÷' + timeValue) || compactCurrentForPhysics.includes(distanceValue + '/' + timeValue) || compactCurrentForPhysics.includes(distanceValue + '／' + timeValue) || compactCurrentForPhysics.includes('计算' + distanceValue + '÷' + timeValue + '的结果') || compactCurrentForPhysics.includes('计算' + distanceValue + '/' + timeValue + '的结果') || /计算.*结果/.test(current);
       const hasSpeedResult = compactCurrentForPhysics.includes('速度=' + speedValue) || compactCurrentForPhysics.includes('=' + speedValue + '米/秒') || compactCurrentForPhysics.includes('=' + speedValue + 'm/s') || /补上单位/.test(current);
-      const makePhysicsSpeedAnswer = (currentLine: string, nextLine: string) => 'Judgment:继续拆解。\\n\\nCurrent step:' + currentLine + '\\n\\nNext step:' + nextLine;
+      const makePhysicsSpeedAnswer = (currentLine: string, nextLine: string) => 'Judgment: Continue.\\n\\nCurrent step:' + currentLine + '\\n\\nNext step:' + nextLine;
       const physicsSpeedNextAnswer =
         hasPhysicsSpeedQuestion && !hasSpeedFormula
           ? makePhysicsSpeedAnswer('写出速度公式：速度 = 路程 ÷ 时间。', '把路程 ' + distanceValue + '米 和时间 ' + timeValue + '秒 代入公式。')
