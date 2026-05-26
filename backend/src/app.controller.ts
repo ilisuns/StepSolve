@@ -82,9 +82,9 @@ export class AppController {
       'Current step:',
       'Next step:',
       '格式要求：',
-      '1. 当前这一步必须写具体可执行动作，不能为空。',
-      '2. 不要把真正要做的动作只写到“下一步”里。',
-      '3. 当前这一步写现在立刻做什么；下一步写做完以后再做什么。',
+      '1. Current step必须写具体可执行动作，不能为空。',
+      '2. 不要把真正要做的动作只写到“Next step”里。',
+      '3. Current step写现在立刻做什么；Next step写做完以后再做什么。',
       '',
       '',
       '规则：',
@@ -92,15 +92,15 @@ export class AppController {
       '2. 只给当前最该走的一小步。',
       '3. 如果学生已经写了步骤，要参考他的步骤，不要从头重讲。',
       '4. 语言短、清楚、像老师在旁边提醒，但不要低龄化。不要说“用手指圈出题目”“拿笔圈一下”这类话；改成“先观察方程结构”“确认已知条件和要求”。',
-      '5. 不要输出 CURRENT_STEP、NEXT_STEP、HINT、CHECK 这些测试标签。不要出现“告诉学生”“引导学生”“应该让学生”这类提示词口吻，要直接对学生说下一步。',
+      '5. 不要输出 CURRENT_STEP、NEXT_STEP、HINT、CHECK 这些测试标签。不要出现“告诉学生”“引导学生”“应该让学生”这类提示词口吻，要直接对学生说Next step。',
       '',
-      '开始拆解年级学科口径：如果是7年级，禁止使用“已知条件、表达式、常数项、一元一次方程、系数”等硬词；必须说成“先看左边”“多了 +3”“先把 +3 去掉”；每句短。9年级可以加入公式关系和简单推理；数学重点说清楚每一步为什么这样变形。物理题遇到质量和合力，下一步必须明确公式 a = F ÷ m，再代入 a = 6 ÷ 2，并提醒单位 m/s²。7年级遇到 2x + 3 = 11 这类题，下一步优先说：先看 +3，要让 2x 单独留下，就先把 +3 去掉；不要说“把 2 和 x 放在一起”。',
+      '开始拆解年级学科口径：如果是7年级，禁止使用“已知条件、表达式、常数项、一元一次方程、系数”等硬词；必须说成“先看左边”“多了 +3”“先把 +3 去掉”；每句短。9年级可以加入公式关系和简单推理；数学重点说清楚每一步为什么这样变形。物理题遇到质量和合力，Next step必须明确公式 a = F ÷ m，再代入 a = 6 ÷ 2，并提醒单位 m/s²。7年级遇到 2x + 3 = 11 这类题，Next step优先说：先看 +3，要让 2x 单独留下，就先把 +3 去掉；不要说“把 2 和 x 放在一起”。',
       `年级：${grade}`,
       `学科：${subject}`,
       `模式：${mode}`,
       '',
       '数学表达补充：',
-      '数学一元一次方程表达规则：如果已经得到 2x = 8 或 ax = b，下一步应引导“等式两边同时除以系数”，不要说“将系数与未知数相乘”。',
+      '数学一元一次方程表达规则：如果已经得到 2x = 8 或 ax = b，Next step应引导“等式两边同时除以系数”，不要说“将系数与未知数相乘”。',
       '',
       '解池内容：',
       question,
@@ -217,7 +217,7 @@ export class AppController {
         const total = Number(ballTotal);
         const isSameNumbers = (first === red && second === blue) || (first === blue && second === red);
         if (isSameNumbers) {
-          return { action, answer: "Judgment:需要补一步。\n\nCurrent step:" + first + " + " + second + " 方向对，但还没有算出结果。\n\nNext step:把 " + first + " + " + second + " 算出来，写成 " + first + " + " + second + " = " + total + "。" };
+          return { action, answer: "Judgment: Need one more step.\n\nCurrent step:" + first + " + " + second + " 方向对，但还没有算出结果。\n\nNext step:把 " + first + " + " + second + " 算出来，写成 " + first + " + " + second + " = " + total + "。" };
         }
       }
       if (eqMatch) {
@@ -229,10 +229,10 @@ export class AppController {
         const total = Number(ballTotal);
         const isSameNumbers = (first === red && second === blue) || (first === blue && second === red);
         if (isSameNumbers && result !== total) {
-          return { action, answer: "Judgment:这里要改。\n\nCurrent step:" + first + " + " + second + " 不等于 " + result + "，正确结果是 " + total + "。\n\nNext step:把这一步改成 " + first + " + " + second + " = " + total + "，再写答句：一共有 " + total + " 个球。" };
+          return { action, answer: "Judgment: This needs to be fixed.\n\nCurrent step:" + first + " + " + second + " 不等于 " + result + "，正确结果是 " + total + "。\n\nNext step:把这一步改成 " + first + " + " + second + " = " + total + "，再写答句：一共有 " + total + " 个球。" };
         }
         if (isSameNumbers && result === total) {
-          return { action, answer: "Judgment:这一步对。\n\nCurrent step:" + first + " + " + second + " = " + total + " 正确。\n\nNext step:写完整答句：一共有 " + total + " 个球。" };
+          return { action, answer: "Judgment: This step is correct.\n\nCurrent step:" + first + " + " + second + " = " + total + " 正确。\n\nNext step:写完整答句：一共有 " + total + " 个球。" };
         }
       }
     }
@@ -258,7 +258,7 @@ export class AppController {
     if (action === "check" && /质量.*2\s*kg|2\s*kg.*质量/.test(question) && /6\s*N|6N/.test(question) && /加速度|合力|F\s*=\s*ma/i.test(question + studentWork)) {
       const compactPhysicsWork2 = studentWork.replace(/\s+/g, "");
       if (/a=6[×x*]2=12/i.test(compactPhysicsWork2) || /6\s*[×x*]\s*2\s*=\s*12/.test(studentWork)) {
-        return { action, answer: "Judgment:这里要改。\n\nCurrent step:加速度要用 a = F ÷ m，所以应是 6 ÷ 2 = 3，不是 6 × 2 = 12。\n\nNext step:把这一步改成 a = 6 ÷ 2 = 3，并补上单位 m/s²。" };
+        return { action, answer: "Judgment: This needs to be fixed.\n\nCurrent step:加速度要用 a = F ÷ m，所以应是 6 ÷ 2 = 3，不是 6 × 2 = 12。\n\nNext step:把这一步改成 a = 6 ÷ 2 = 3，并补上单位 m/s²。" };
       }
     }
     // physics wrong multiply strict return end
@@ -267,7 +267,7 @@ export class AppController {
     if (action === "check" && /质量.*2\s*kg|2\s*kg.*质量/.test(question) && /6\s*N|6N/.test(question) && /加速度|合力|F\s*=\s*ma/i.test(question + studentWork)) {
       const compactPhysicsNeed = studentWork.replace(/\s+/g, "");
       if ((/a=6[÷\/]2/i.test(compactPhysicsNeed) || /6\s*[÷\/]\s*2/.test(studentWork)) && !/=\s*3/.test(studentWork)) {
-        return { action, answer: "Judgment:需要补一步。\n\nCurrent step:a = 6 ÷ 2 方向对，但还没有算出结果。\n\nNext step:把 6 ÷ 2 算出来，写成 a = 3 m/s²。" };
+        return { action, answer: "Judgment: Need one more step.\n\nCurrent step:a = 6 ÷ 2 方向对，但还没有算出结果。\n\nNext step:把 6 ÷ 2 算出来，写成 a = 3 m/s²。" };
       }
     }
     // chemistry balanced strict return v2
@@ -275,18 +275,18 @@ export class AppController {
       const compactChemistryWork = studentWork.replace(/\s+/g, "").replace(/₂/g, "2");
       // chemistry unbalanced direct return v1
       if (/H2\+O2=H2O/i.test(compactChemistryWork)) {
-        return { action, answer: `Judgment:这一步不完整，还没有配平。\n\nCurrent step:H2 + O2 = H2O 只是写出了反应物和生成物，但左右氧原子数不一样。\n\nNext step:先把水前面配 2，写成 H2 + O2 = 2H2O，再继续配氢。` };
+        return { action, answer: `Judgment: This step is incomplete; the equation is not balanced yet.\n\nCurrent step:H2 + O2 = H2O 只是写出了反应物和生成物，但左右氧原子数不一样。\n\nNext step:先把水前面配 2，写成 H2 + O2 = 2H2O，再继续配氢。` };
       }
       if (/2H2\+O2=2H2O/i.test(compactChemistryWork)) {
-        return { action, answer: "Judgment:这一步对。\n\nCurrent step:2H2 + O2 = 2H2O 已经配平。\n\nNext step:可以检查原子数：左边氢 4 个、氧 2 个，右边氢 4 个、氧 2 个。" };
+        return { action, answer: "Judgment: This step is correct.\n\nCurrent step:2H2 + O2 = 2H2O is balanced.\n\nNext step:可以检查原子数：左边氢 4 个、氧 2 个，右边氢 4 个、氧 2 个。" };
       }
     }
     if (action === 'next' && subject === '物理' && /质量.*2kg|2kg/.test(question) && /6N|合力/.test(question)) {
-      return { action, answer: 'Judgment:继续拆解。\n\nCurrent step:用公式 a = F ÷ m。\n\nNext step:把数字代进去：a = 6 ÷ 2。算完后，单位写 m/s²。' }; // 物理下一步固定提示
+      return { action, answer: 'Judgment:继续拆解。\n\nCurrent step:用公式 a = F ÷ m。\n\nNext step:把数字代进去：a = 6 ÷ 2。算完后，单位写 m/s²。' }; // 物理Next step固定提示
     }
 
     if (action === 'next' && subject === '化学' && /氢气|氧气|H2|O2|H₂|O₂|H2O|H₂O|配平/.test(question)) {
-      return { action, answer: 'Judgment:继续拆解。\n\nCurrent step:先写出未配平的式子：H2 + O2 → H2O。\n\nNext step:数原子。左边氢 2 个，氧 2 个；右边氢 2 个，氧 1 个。先想办法让氧的个数相等。' }; // 化学下一步固定提示
+      return { action, answer: 'Judgment:继续拆解。\n\nCurrent step:先写出未配平的式子：H2 + O2 → H2O。\n\nNext step:数原子。左边氢 2 个，氧 2 个；右边氢 2 个，氧 1 个。先想办法让氧的个数相等。' }; // 化学Next step固定提示
     }
 
     const actionInstruction =
@@ -298,7 +298,7 @@ export class AppController {
 
     const prompt = [
       '你是一个面向学生的作业拆解助手。',
-      '产品不是答案机，目标是让学生继续走下一步。`r`nAnswer only in clear English for US middle-school students.',
+      '产品不是答案机，目标是让学生继续走Next step。`r`nAnswer only in clear English for US middle-school students.',
       '',
       '三科强引导规则：数学、物理、化学里，只要关系链容易绕，即使题目看起来基础，也按困难题或强引导题处理。',
       '',
@@ -316,9 +316,9 @@ export class AppController {
       'Current step:',
       'Next step:',
       '格式要求：',
-      '1. 当前这一步必须写具体可执行动作，不能为空。',
-      '2. 不要把真正要做的动作只写到“下一步”里。',
-      '3. 当前这一步写现在立刻做什么；下一步写做完以后再做什么。',
+      '1. Current step必须写具体可执行动作，不能为空。',
+      '2. 不要把真正要做的动作只写到“Next step”里。',
+      '3. Current step写现在立刻做什么；Next step写做完以后再做什么。',
       '',
       '',
       '规则：',
@@ -328,7 +328,7 @@ export class AppController {
       '4. hint 只给提示方向。',
       '5. check 不要先硬判“对/错”。先用四种口径：可以继续 / 需要补一步 / 这里要改 / 还看不出来。学生步骤能从原题合理推出、方向对、结果能继续时，判“可以继续”。学生省略中间过程但结果合理时，不要判错，最多说“需要补一步”。只有明显算错、移项错、公式错、单位错，才说“这里要改”。',
       '6. 语言短、清楚，但不要低龄化。不要说“用手指圈出题目”“拿笔圈一下”这类话；改成正常初中生能接受的表达。',
-      '7. 不要输出 CURRENT_STEP、NEXT_STEP、HINT、CHECK 这些测试标签。不要出现“告诉学生”“引导学生”“应该让学生”这类提示词口吻，要直接对学生说下一步。',
+      '7. 不要输出 CURRENT_STEP、NEXT_STEP、HINT、CHECK 这些测试标签。不要出现“告诉学生”“引导学生”“应该让学生”这类提示词口吻，要直接对学生说Next step。',
       '',
       '年级学科回答口径：7年级要更短、更细、更像一步一步带；8年级正常拆解；9年级可以多一点公式和推理；10年级可以更结构化。数学重步骤和变形，物理重公式、已知量和单位，化学重配平和元素守恒。',
       actionInstruction,
@@ -336,12 +336,12 @@ export class AppController {
       '额外要求：',
       '1. 如果学生点“再给我一步”，必须比当前页面往前推进一小步，不能重复上一句。',
       '2. 如果学生点“给我一点提示”，只给提示方向，不能和“再给我一步”完全一样。',
-      '3. 化学方程式题：已经写出反应物后，下一步应引导写生成物；已经写出生成物后，下一步才引导配平。',
+      '3. 化学方程式题：已经写出反应物后，Next step应引导写生成物；已经写出生成物后，Next step才引导配平。',
       '4. 检查缺少学生步骤时，只提示补步骤，不要判对错。',
       '5. 如果 action 是 next 或 hint，且没有明确学生步骤，判断栏只能写“继续拆解”或“给一点提示”，禁止写“这一步基本对”“还差验证”“这一步不对”。',
       '',
       '数学表达补充：',
-      '数学一元一次方程表达规则：如果已经得到 2x = 8 或 ax = b，下一步应引导“等式两边同时除以系数”，不要说“将系数与未知数相乘”。',
+      '数学一元一次方程表达规则：如果已经得到 2x = 8 或 ax = b，Next step应引导“等式两边同时除以系数”，不要说“将系数与未知数相乘”。',
       '',
       '原题/解池内容：',
       question,
@@ -367,14 +367,14 @@ export class AppController {
           ? rawAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, neutralJudge + '\n\n')
           : rawAnswer;
       const compactStudentWork = studentWork.replace(/\s+/g, '');
-      const mathNeedOneMoreStepAnswer = action === 'check' && /[0-9]+\s*[xX]\s*=\s*[0-9]+\s*[-+]\s*[0-9]+/.test(studentWork) ? answer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment:需要补一步。' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:你这一步方向对，但右边还没有算完，先把减法算出来。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:先把右边算完，例如 11 - 3 = 8，再写成 2x = 8。') : answer;
-      const mathCanContinueAnswer = action === 'check' && /2x\+3=11/.test(question.replace(/\s+/g, '')) && /2x=8/.test(compactStudentWork) ? mathNeedOneMoreStepAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment:可以继续。' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:2x = 8 是正确的中间步骤。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:等式两边同时除以 2，得到 x = 4。') : mathNeedOneMoreStepAnswer;
-      const mathNeedChangeAnswer = action === 'check' && /2x\+3=11/.test(question.replace(/\s+/g, '')) && /2x=7/.test(compactStudentWork) ? mathCanContinueAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment:这里要改。' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:从 2x + 3 = 11 移项后，右边应是 11 - 3 = 8，不是 7。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:先改成 2x = 8，再继续求 x。') : mathCanContinueAnswer;
-      const mathDivideNotFinishedAnswer = action === 'check' && /2x\+3=11/.test(question.replace(/\s+/g, '')) && /x=8[÷\/]2/.test(compactStudentWork) ? mathNeedChangeAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment:需要补一步。' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:x = 8 ÷ 2 方向对，但还没有算出最终结果。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:把 8 ÷ 2 算出来，写成 x = 4。') : mathNeedChangeAnswer;
+      const mathNeedOneMoreStepAnswer = action === 'check' && /[0-9]+\s*[xX]\s*=\s*[0-9]+\s*[-+]\s*[0-9]+/.test(studentWork) ? answer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: Need one more step.' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:你这一步方向对，但右边还没有算完，先把减法算出来。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:先把右边算完，例如 11 - 3 = 8，再写成 2x = 8。') : answer;
+      const mathCanContinueAnswer = action === 'check' && /2x\+3=11/.test(question.replace(/\s+/g, '')) && /2x=8/.test(compactStudentWork) ? mathNeedOneMoreStepAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: You can continue.' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:2x = 8 是正确的中间步骤。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:等式两边同时除以 2，得到 x = 4。') : mathNeedOneMoreStepAnswer;
+      const mathNeedChangeAnswer = action === 'check' && /2x\+3=11/.test(question.replace(/\s+/g, '')) && /2x=7/.test(compactStudentWork) ? mathCanContinueAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: This needs to be fixed.' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:从 2x + 3 = 11 移项后，右边应是 11 - 3 = 8，不是 7。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:先改成 2x = 8，再继续求 x。') : mathCanContinueAnswer;
+      const mathDivideNotFinishedAnswer = action === 'check' && /2x\+3=11/.test(question.replace(/\s+/g, '')) && /x=8[÷\/]2/.test(compactStudentWork) ? mathNeedChangeAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: Need one more step.' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:x = 8 ÷ 2 方向对，但还没有算出最终结果。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:把 8 ÷ 2 算出来，写成 x = 4。') : mathNeedChangeAnswer;
       const compactQuestion = question.replace(/\s+/g, '');
-      const mathFinalAnswer = action === 'check' && /2x\+3=11/.test(compactQuestion) && /x=4/.test(compactStudentWork) ? answer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment:可以继续。' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:x = 4 是正确结果。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:可以代回原方程检查：2×4 + 3 = 11。') : mathDivideNotFinishedAnswer;
-      const physicsCheckedAnswer = action === 'check' && /质量.*2\s*kg|2\s*kg.*质量/.test(question) && /6N|6\s*N/.test(question) && /F\s*=\s*ma/i.test(studentWork) && /6\s*[÷\/]\s*2\s*=\s*3/.test(studentWork) ? mathFinalAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment:这一步对。' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:确认 6N 是合力，然后写出最终答：a = 3m/s²。') : mathFinalAnswer;
-      const chemistryCheckedAnswer = action === 'check' && /氢气|氧气|水|配平/.test(question + studentWork) && (/H2\+O2=H2O/i.test(compactStudentWork) || /H₂\+O₂=H₂O/i.test(compactStudentWork)) ? physicsCheckedAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment:这一步不完整，还没有配平。' + '\n\n') : physicsCheckedAnswer;
+      const mathFinalAnswer = action === 'check' && /2x\+3=11/.test(compactQuestion) && /x=4/.test(compactStudentWork) ? answer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: You can continue.' + '\n\n').replace(/Current step:[\s\S]*?(?=\n\s*Next step:)/, 'Current step:x = 4 is correct.' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step: Substitute x = 4 back into the original equation to check: 2×4 + 3 = 11.') : mathDivideNotFinishedAnswer;
+      const physicsCheckedAnswer = action === 'check' && /质量.*2\s*kg|2\s*kg.*质量/.test(question) && /6N|6\s*N/.test(question) && /F\s*=\s*ma/i.test(studentWork) && /6\s*[÷\/]\s*2\s*=\s*3/.test(studentWork) ? mathFinalAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: This step is correct.' + '\n\n').replace(/Next step:[\s\S]*$/, 'Next step:确认 6N 是合力，然后写出最终答：a = 3m/s²。') : mathFinalAnswer;
+      const chemistryCheckedAnswer = action === 'check' && /氢气|氧气|水|配平/.test(question + studentWork) && (/H2\+O2=H2O/i.test(compactStudentWork) || /H₂\+O₂=H₂O/i.test(compactStudentWork)) ? physicsCheckedAnswer.replace(/Judgment:[\s\S]*?(?=\n\s*Current step:)/, 'Judgment: This step is incomplete; the equation is not balanced yet.' + '\n\n') : physicsCheckedAnswer;
 
       const timeMatch = question.match(/([0-9]+(?:\.[0-9]+)?)\s*秒/);
       const distanceMatch = question.match(/([0-9]+(?:\.[0-9]+)?)\s*米/);
