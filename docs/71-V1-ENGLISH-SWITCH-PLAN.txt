@@ -1,0 +1,6 @@
+V1 English public beta switch plan 
+goal=make StepSolve understandable for US testers 
+step1=frontend visible UI copy to English 
+step2=backend AI response and prompts to English 
+step3=online English test with clean homework 
+rule=do not add new features during English switch 
