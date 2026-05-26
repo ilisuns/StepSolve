@@ -64,6 +64,7 @@ export class AppController {
     }
 
     const prompt = [
+      'IMPORTANT: Write the user-facing answer in English only. Do not use Chinese characters. Use exactly these labels: Judgment:, Current step:, Next step.',
       '你是一个面向学生的作业拆解助手。',
       '产品不是答案机，目标是把作业变成学生能继续走下去的学习路径。',
       '只服务数学、物理、化学。`r`nAnswer only in clear English for US middle-school students. Do not include Chinese words in the user-facing answer.',
@@ -297,6 +298,7 @@ export class AppController {
           : '学生点了“再给我一步”。只承接当前内容，给下一小步，不能重新从头拆题。';
 
     const prompt = [
+      'IMPORTANT: Write the user-facing answer in English only. Do not use Chinese characters. Use exactly these labels: Judgment:, Current step:, Next step.',
       '你是一个面向学生的作业拆解助手。',
       '产品不是答案机，目标是让学生继续走Next step。`r`nAnswer only in clear English for US middle-school students. Do not include Chinese words in the user-facing answer.',
       '',
