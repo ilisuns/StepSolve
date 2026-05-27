@@ -273,3 +273,22 @@ select { min-height: 38px; border: 1px solid #cbd6e8; border-radius: 12px; backg
 .publicBetaNotice:has(a[href='mailto:'])::before{content:'Testing Feedback';display:block;margin-bottom:6px;color:#1e3a8a;font-size:16px;font-weight:800;}
 .publicBetaNotice:has(a[href='mailto:']) a{display:inline-block;margin-right:8px;padding:8px 13px;border-radius:999px;background:#2563eb;color:white;text-decoration:none;font-weight:800;}
 .publicBetaNotice:has(a[href='mailto:']) a:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(37,99,235,.24);}
+
+/* POOL_TWO_PARTS_POLISH_2026_05_27 */
+.poolInput {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.poolTip {
+  margin-top: 0;
+  padding: 12px 14px;
+  border: 1px solid rgba(80, 120, 255, 0.22);
+  border-left: 4px solid rgba(80, 120, 255, 0.55);
+  border-radius: 14px;
+  background: rgba(245, 248, 255, 0.92);
+  box-shadow: 0 8px 22px rgba(80, 120, 255, 0.08);
+  color: rgb(36, 48, 74);
+  font-size: 14px;
+  line-height: 1.45;
+}
