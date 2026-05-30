@@ -493,7 +493,7 @@ function App() {
           <p className="eyebrow">StepSolve V1</p>
           <h1>Turn homework into the next step</h1>
           <p className="subtitle">Drop in a math, physics, or chemistry problem. StepSolve helps you find one clear next step.</p>
-          <p className="publicBetaNotice">V1 beta: Each device can test 3 homework problems per day, with up to 8 AI interactions per problem. Text-only math, physics, and chemistry for now.</p>
+          <p className="publicBetaNotice">V1 beta: Each device can test 3 homework problems per day, with up to 8 AI interactions per problem. Text-only math, physics, and chemistry for now. </p>
           <p className="publicBetaNotice"><a href="mailto:trlisuning@gmail.com?subject=StepSolve%20 Feedback&body=What%20problem%20were%20you%20trying%20to%20solve%3F%0you%20trying%20to%20solve%0A%0ADid%20StepSolve%20help%20you%20find%20the%20next%20step%3F%0A%0AWhat%20was%20confusing%3F%0A%0AYour%20email%20(optional)%3A%20">Feedback</a> · If you leave your email, we may follow up for details.</p>
           <div className="goalBar"><strong>Goal:</strong><span>Understand the problem → Find the method → Take the next step → Check your work</span></div>
         </div>
@@ -600,8 +600,8 @@ function App() {
                 <pre className="resultText longResult">{nextHint}</pre>
               ) : (
                 <div className="emptyState">
-                  <strong>还没有Next step</strong>
-                  <p>点击“Next step”或“Get a hint”，这里会显示下一步。</p>
+                  <strong>No next step yet</strong>
+                  <p>Click Next step or Get a hint. The next small step will appear here.</p>
                 </div>
               )}
             </div>
