@@ -292,3 +292,159 @@ select { min-height: 38px; border: 1px solid #cbd6e8; border-radius: 12px; backg
   font-size: 14px;
   line-height: 1.45;
 }
+
+/* jiechi poster v1 */
+.posterOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.96), rgba(255, 255, 255, 0.96));
+  backdrop-filter: blur(10px);
+}
+
+.posterCard {
+  position: relative;
+  width: min(480px, 100%);
+  padding: 28px;
+  border-radius: 28px;
+  background: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.18);
+}
+
+.posterClose {
+  position: absolute;
+  right: 18px;
+  top: 16px;
+  border: 0;
+  background: transparent;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.posterEyebrow {
+  margin: 0 0 10px;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.posterCard h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 30px;
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+}
+
+.posterCard h3 {
+  margin: 8px 0 14px;
+  color: #1d4ed8;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.posterIntro {
+  margin: 0;
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.posterFlow {
+  display: grid;
+  gap: 8px;
+  margin: 22px 0 16px;
+}
+
+.posterMiniCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #f8fbff;
+}
+
+.posterMiniCard span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.posterMiniCard strong {
+  color: #0f172a;
+  font-size: 15px;
+}
+
+.posterArrow {
+  color: #2563eb;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+}
+
+.posterSubjects {
+  margin: 12px 0 14px;
+  color: #64748b;
+  font-size: 13px;
+  text-align: center;
+}
+
+.posterPrimary {
+  width: 100%;
+  min-height: 54px;
+  border: 0;
+  border-radius: 18px;
+  background: #1d4ed8;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 900;
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+  animation: posterButtonPulse 2.4s ease-in-out infinite;
+}
+
+.posterPrimary span {
+  display: inline-block;
+  animation: posterArrowMove 1.4s ease-in-out infinite;
+}
+
+@keyframes posterButtonPulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
+}
+
+@keyframes posterArrowMove {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+@media (max-width: 560px) {
+  .posterCard {
+    padding: 24px 20px;
+    border-radius: 24px;
+  }
+
+  .posterCard h2 {
+    font-size: 26px;
+  }
+
+  .posterCard h3 {
+    font-size: 21px;
+  }
+}
+
+
+/* jiechi poster image final */
+.posterImageOverlay{position:fixed;inset:0;z-index:1000;background:#edf5ff;display:grid;place-items:center;padding:0;overflow:auto;}
+.posterImageButton{border:0;background:transparent;padding:0;margin:0;display:block;width:min(100vw,520px);cursor:pointer;box-shadow:0 24px 70px rgba(15,23,42,.18);}
+.posterImageButton img{display:block;width:100%;height:auto;}
+.posterImageSkip{position:fixed;right:22px;top:18px;z-index:1001;border:0;background:rgba(255,255,255,.55);color:#334155;font-size:16px;font-weight:700;border-radius:999px;padding:8px 12px;box-shadow:0 8px 24px rgba(15,23,42,.12);}
+@media (max-width:560px){.posterImageButton{width:100vw;box-shadow:none}.posterImageSkip{right:14px;top:12px}}
+
