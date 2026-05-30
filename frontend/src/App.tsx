@@ -67,9 +67,9 @@ function splitAnswerSections(answer: string) {
   };
 
   return {
-    judgement: pick('判断：', ['Current step：', 'Next step：', 'Step check：']),
-    current: pick('Current step：', ['Next step：', 'Step check：', '判断：']),
-    next: pick('Next step：', ['Step check：', '判断：', 'Current step：']),
+    judgement: pick('Judgment:', ['Current step：', 'Next step：', 'Step check：']),
+    current: pick('Current step：', ['Next step：', 'Step check：', 'Judgment:']),
+    next: pick('Next step：', ['Step check：', 'Judgment:', 'Current step：']),
     raw: text.trim(),
   };
 }
@@ -254,13 +254,13 @@ function App() {
         mode: '一步步带我做',
       });
 
-      const answer = data.answer || '判断： Problem received.\n\nCurrent step： Read the problem first.\n\nNext step: Continue with one small step.';
+      const answer = data.answer || 'Judgment: Problem received.\n\nCurrent step： Read the problem first.\n\nNext step: Continue with one small step.';
       const sections = splitAnswerSections(answer);
       setCurrentStep(sections.current || answer);
       setNextHint(sections.next || '');
       setResultText(answer);
       setLastQuestion(question);
-      addActionLog('Start solving: 当前步骤已显示');
+      addActionLog('Start solving: current step shown');
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown error';
       setCurrentStep(`Request failed：${message}`);
@@ -314,7 +314,7 @@ function App() {
         studentWork: action === 'check' && hasStudentWork ? poolText : '',
       });
 
-      const answer = data.answer || '判断： Received.\n\nCurrent step： Continue working on this problem.\n\nNext step：再往前走一小步。';
+      const answer = data.answer || 'Judgment: Received.\n\nCurrent step： Continue working on this problem.\n\nNext step：再往前走一小步。';
       const sections = splitAnswerSections(answer);
       if (action === 'next') {
         if (sections.current) setCurrentStep(sections.current);
@@ -341,9 +341,9 @@ function App() {
       setResultText((oldText) => [oldText, actionTitle + '\n' + answer].filter(Boolean).join('\n\n---\n\n'));
       setLastQuestion(question);
 
-      if (action === 'next') addActionLog('Next step: 已加入');
-      if (action === 'hint') addActionLog('提示：已显示');
-      if (action === 'check') addActionLog('Check this step: 结果已返回');
+      if (action === 'next') addActionLog('Next step: added');
+      if (action === 'hint') addActionLog('Hint shown');
+      if (action === 'check') addActionLog('Check this step: result returned');
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown error';
       setCurrentStep(`Request failed：${message}`);
@@ -357,7 +357,7 @@ function App() {
     try {
       const text = await navigator.clipboard.readText();
       handlePoolChange(text);
-      addActionLog('Paste: 已加入 to the box');
+      addActionLog('Paste: added to the box');
     } catch {
       addActionLog('Paste: browser did not allow clipboard access');
     }
@@ -492,9 +492,9 @@ function App() {
         <div className="titleBlock">
           <p className="eyebrow">StepSolve V1</p>
           <h1>Turn homework into the next step</h1>
-          <p className="subtitle">把Math、Physics或Chemistry作业放进来，解池会帮你看清下一步。</p>
+          <p className="subtitle">Drop in a math, physics, or chemistry problem. StepSolve helps you find one clear next step.</p>
           <p className="publicBetaNotice">V1 beta: Each device can test 3 homework problems per day, with up to 8 AI interactions per problem. Text-only math, physics, and chemistry for now.</p>
-          <p className="publicBetaNotice"><a href="mailto:trlisuning@gmail.com?subject=StepSolve%20Feedback&body=What%20problem%20were%20you%20trying%20to%20solve%3F%0you%20trying%20to%20solve%0A%0ADid%20StepSolve%20help%20you%20find%20the%20next%20step%3F%0A%0AWhat%20was%20confusing%3F%0A%0AYour%20email%20(optional)%3A%20">Feedback</a> · If you leave your email, we may follow up for details.</p>
+          <p className="publicBetaNotice"><a href="mailto:trlisuning@gmail.com?subject=StepSolve%20 Feedback&body=What%20problem%20were%20you%20trying%20to%20solve%3F%0you%20trying%20to%20solve%0A%0ADid%20StepSolve%20help%20you%20find%20the%20next%20step%3F%0A%0AWhat%20was%20confusing%3F%0A%0AYour%20email%20(optional)%3A%20"> Feedback</a> · If you leave your email, we may follow up for details.</p>
           <div className="goalBar"><strong>Goal:</strong><span>Understand the problem → Find the method → Take the next step → Check your work</span></div>
         </div>
 
@@ -606,10 +606,10 @@ function App() {
               )}
             </div>
 
-            <div className="resultCard">               <div className="rowHeader">                 <h2>Step check</h2>               </div>                {checkResult ? (                 <pre className="resultText longResult">{checkResult}</pre>               ) : (                 <div className="emptyState">                   <strong>还没有Step check</strong>                   <p>To check your work, include your step in the box, such as: I got x = 4. Is this correct?</p>                 </div>               )}             </div> 
+            <div className="resultCard">               <div className="rowHeader">                 <h2>Step check</h2>               </div>                {checkResult ? (                 <pre className="resultText longResult">{checkResult}</pre>               ) : (                 <div className="emptyState">                   <strong>No check yet</strong>                   <p>To check your work, include your step in the box, such as: I got x = 4. Is this correct?</p>                 </div>               )}             </div> 
             <div className="resultCard">
               <div className="rowHeader">
-                <h2>Save作业</h2>
+                <h2>Save homework</h2>
                 {hasResult && (
                   <div className="saveButtonGroup">
                     <button type="button" className="copyButton" onClick={copyResult}>
@@ -623,13 +623,13 @@ function App() {
               </div>
 
               <div className="emptyState compact">
-                <p>Save的作业会显示在下面。本设备最多保留 20 条。</p>
+                <p>Saved homework will appear below. This device keeps up to 20 items.</p>
                 {saveNotice && <p className="saveNotice">{saveNotice}</p>}
                 {hasFailedResult && <p className="saveNotice warning">This result has an error. Restart the problem successfully before saving.</p>}
               </div>
 
               <div className="recentBox">
-                <h3>最近Save ({savedResults.length}/20）</h3>
+                <h3>Recent saves ({savedResults.length}/20)</h3>
                 {savedResults.length ? (
                   <ul className="recentList">
                     {savedResults.slice(0, 5).map((item) => (
@@ -652,7 +652,7 @@ function App() {
                   </ul>
                 ) : (
                   <div className="emptyState compact">
-                    <p>Save的作业会显示在这里。</p>
+                    <p>Saved homework will appear here.</p>
                   </div>
                 )}
               </div>
